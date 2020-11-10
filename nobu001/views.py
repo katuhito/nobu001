@@ -8,6 +8,7 @@ from django.views.generic import ListView
 from django.views.generic import DetailView
 from .forms import FindForm
 from django.db.models import Count,Sum,Avg,Min,Max
+from .forms import CheckForm
 
 def index(request):
     data = Friend.objects.all()
@@ -96,6 +97,23 @@ def find(request):
         'data': data,
     }
     return render(request, 'nobu001/find.html', params)
+
+def check(request):
+    params = {
+        'title': 'Hello',
+        'message': 'check validation.',
+        'form': FriendForm(),
+    }
+    if (request.method == 'POST'):
+        obj = Friend()
+        form = FriendForm(request.POST, instance=obj)
+        params['form'] = form
+        if (form.is_valid()):
+            params['message'] = 'OK!'
+        else:
+            params['message'] = 'no good.'
+    return render(request, 'nobu001/check.html', params)
+
 
 
 

@@ -1,10 +1,16 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinLengthValidator
+from django.core.validators import URLValidator
+from django.core.validators import RegexValidator
+
+
 
 class Friend(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, validators=[RegexValidator(r'^[a-z]*$')])
     mail = models.EmailField(max_length=200)
     gender = models.BooleanField()
-    age = models.IntegerField(default=0)
+    age = models.IntegerField()
     birthday = models.DateField()
 
     def __str__(self):
