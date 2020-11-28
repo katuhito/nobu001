@@ -58,7 +58,7 @@ def groups(request):
 
         # Groupsメニュー選択肢の処理
         if request.POST['mode'] == '__groups_form__':
-            # 選択したGrup名を取得
+            # 選択したGroup名を取得
             sel_group = request.POST['groups']
             # Groupを取得
             gp = Group.objects.filter(owner=request.user).filter(title=sel_group).first()
@@ -165,7 +165,7 @@ def post(request):
         # Groupの取得
         group = Group.objects.filter(owner=request.user).filter(title=gr_name).first()
         if group == None:
-            (pib_user, group) = get_public()
+            (pub_user, group) = get_public()
         # Messageを作成し設定して保存
         msg = Message()
         msg.owner = request.user
@@ -281,7 +281,7 @@ def get_public():
     public_user = User.objects.filter(username='public').first()
     public_group = Group.objects.filter(owner=public_user).first()
     return (public_user, public_group)
-    
+
 
 
 
